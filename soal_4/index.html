@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <title>Employee detail</title>
+    <style>
+body {
+  background:#e0c090;
+  font-size: 12px;
+}
+body, button, input {
+  font-family: 'Fira Sans', sans-serif;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+}
+.container {
+  flex: 0 1 700px;
+  margin: auto;
+  padding: 10px;
+}
+.screen-body {
+  display: flex;
+}
+
+.screen-body-item {
+  flex: 1;
+  padding: 50px;
+}
+.screen-body-item.left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.table-wrapper {
+    width: 700px;
+    margin: 30px auto;
+    background: #cac2c2;
+    color: #000000;
+    padding: 20px;  
+    box-shadow: 0 1px 1px rgba(0,0,0,.05);
+}
+.table-title .add-new {
+    float: right;
+    height: 30px;
+    font-weight: bold;
+    font-size: 12px;
+    text-shadow: none;
+    min-width: 100px;
+    border-radius: 50px;
+    line-height: 13px;
+}
+.table-title .add-new i {
+    margin-right: 4px;
+}
+    </style>
+</head>
+<body>
+    <div class="background">
+        <div class="container">
+          <div class="screen">
+            <div class="screen-body">
+              <div class="screen-body-item left">
+                <div class="app-title">
+                </div>
+              </div>
+              <div class="table-wrapper">
+                  <div class="table-title">
+                      <div class="row">
+                          <div class="col-sm-8"><h2>Employee <b>Details</b></h2></div>
+                          <div class="col-sm-4">
+                              <button type="button" class="btn btn-info add-new"><i class="fa fa-plus"></i> Add New</button>
+                          </div>
+                      </div>
+                  </div>
+                  <table class="table table-bordered">
+                      <thead>
+                          <tr>
+                              <th>Name</th>
+                              <th>Email</th>
+                              <th>Phone</th>
+                              <th>Actions</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr>
+                              <td>Tom Marshall</td>
+                              <td>Marshaltom@gmail.com</td>
+                              <td>085256239234</td>
+                              <td>
+                                  <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                                  <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                                  <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                              </td>
+                          </tr>
+                          <tr>
+                              <td>Finn Shelby</td>
+                              <td>finshel7@gmail.com</td>
+                              <td>088765776577</td>
+                              <td>
+                                  <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                                  <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                                  <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                              </td>
+                          </tr>
+                          <tr>
+                              <td>Mark Laufison</td>
+                              <td>Laufisonmarkgmail.com</td>
+                              <td>087576445687</td>
+                              <td>
+                                  <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                                  <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                                  <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                              </td>
+                          </tr>      
+                      </tbody>
+                  </table>
+              </div>
+      
+          </div>
+      
+        </div>
+      </div>
+      
+      <script>
+      $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();
+        var actions = $("table td:last-child").html();
+      
+          $(".add-new").click(function(){
+          $(this).attr("disabled", "disabled");
+          var index = $("table tbody tr:last-child").index();
+              var row = '<tr>' +
+                  '<td><input type="text" class="form-control" name="nama" id="nama"></td>' +
+                  '<td><input type="text" class="form-control" name="email" id="email"></td>' +
+                  '<td><input type="text" class="form-control" name="notelepon" id="notelepon"></td>' +
+            '<td>' + actions + '</td>' +
+              '</tr>';
+            $("table").append(row);   
+          $("table tbody tr").eq(index + 1).find(".add, .edit").toggle();
+              $('[data-toggle="tooltip"]').tooltip();
+          });
+        // Add row on add button click
+        $(document).on("click", ".add", function(){
+          var empty = false;
+          var input = $(this).parents("tr").find('input[type="text"]');
+              input.each(function(){
+            if(!$(this).val()){
+              $(this).addClass("error");
+              empty = true;
+            } else{
+                      $(this).removeClass("error");
+                  }
+          });
+          $(this).parents("tr").find(".error").first().focus();
+          if(!empty){
+            input.each(function(){
+              $(this).parent("td").html($(this).val());
+            });     
+            $(this).parents("tr").find(".add, .edit").toggle();
+            $(".add-new").removeAttr("disabled");
+          }   
+          });
+        // Edit row on edit button click
+        $(document).on("click", ".edit", function(){    
+              $(this).parents("tr").find("td:not(:last-child)").each(function(){
+            $(this).html('<input type="text" class="form-control" value="' + $(this).text() + '">');
+          });   
+          $(this).parents("tr").find(".add, .edit").toggle();
+          $(".add-new").attr("disabled", "disabled");
+          });
+        // Delete row on delete button click
+        $(document).on("click", ".delete", function(){
+              $(this).parents("tr").remove();
+          $(".add-new").removeAttr("disabled");
+          });
+      });
+      </script>
+</body>
+</html>
